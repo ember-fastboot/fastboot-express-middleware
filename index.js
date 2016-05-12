@@ -1,10 +1,10 @@
 'use strict';
 
-const FastBoot = require('fastboot');
-const chalk = require('chalk');
+var FastBoot = require('fastboot');
+var chalk = require('chalk');
 
 function fastbootExpressMiddleware(distPath, options) {
-  let opts = options;
+  var opts = options;
 
   if (arguments.length === 1) {
     if (typeof distPath === 'string') {
@@ -16,9 +16,9 @@ function fastbootExpressMiddleware(distPath, options) {
 
   opts = opts || {};
 
-  let log = opts.log !== false ? _log : function() {};
+  var log = opts.log !== false ? _log : function() {};
 
-  let fastboot = opts.fastboot;
+  var fastboot = opts.fastboot;
 
   if (!fastboot) {
     fastboot = new FastBoot({
@@ -28,14 +28,14 @@ function fastbootExpressMiddleware(distPath, options) {
   }
 
   return function(req, res, next) {
-    let path = req.url;
+    var path = req.url;
     fastboot.visit(path, { request: req, response: res })
       .then(success, failure);
 
     function success(result) {
       result.html()
-        .then(html => {
-          let headers = result.headers;
+        .then(function(html) {
+          var headers = result.headers;
 
           for (var pair of headers.entries()) {
             res.set(pair[0], pair[1]);
@@ -45,7 +45,7 @@ function fastbootExpressMiddleware(distPath, options) {
           res.status(result.statusCode);
           res.send(html);
         })
-        .catch(error => {
+        .catch(function(error) {
           console.log(error.stack);
           res.sendStatus(500);
         });
@@ -67,11 +67,11 @@ function fastbootExpressMiddleware(distPath, options) {
 }
 
 function _log(statusCode, message, startTime) {
-  let color = statusCode === 200 ? 'green' : 'red';
-  let now = new Date();
+  var color = statusCode === 200 ? 'green' : 'red';
+  var now = new Date();
 
   if (startTime) {
-    let diff = Date.now() - startTime;
+    var diff = Date.now() - startTime;
     message = message + chalk.blue(" " + diff + "ms");
   }
 
