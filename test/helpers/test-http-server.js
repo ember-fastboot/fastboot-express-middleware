@@ -14,11 +14,16 @@ class TestHTTPServer {
     this.id = ++serverID;
   }
 
-  start() {
+  start(afterSetup) {
     let options = this.options;
     let app = express();
 
+
     app.get('/*', this.middleware);
+
+    if (typeof afterSetup === 'function') {
+      afterSetup(app);
+    }
 
     return new Promise((resolve, reject) => {
       let port = options.port || 3000;
