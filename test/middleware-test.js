@@ -38,6 +38,28 @@ describe("FastBoot", function() {
       });
   });
 
+  it("can delegate error handle to the app", function(done) {
+    let middleware = fastbootMiddleware({
+      distPath: fixture('error-case'),
+      onFailure(err, req, res, next) {
+        // do nothing, delegate error handling to the error handling middleware
+        next(err);
+      }
+    });
+
+    server = new TestHTTPServer(middleware);
+
+    function register(app) {
+      app.use(function(err, res, req, next) {
+        done();
+      });
+    }
+
+    return server.start(register).then(() => {
+      return server.request('/');
+    });
+  });
+
   it("can provide distPath as an option", function() {
     let middleware = fastbootMiddleware({
       distPath: fixture('basic-app')

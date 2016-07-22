@@ -55,11 +55,15 @@ function fastbootExpressMiddleware(distPath, options) {
       if (error.name === "UnrecognizedURLError") {
         next();
       } else {
-        log(500, "Unknown Error: " + error.stack);
-        if (error.stack) {
-          res.status(500).send(error.stack);
+        if (typeof opts.onFailure === 'function') {
+          opts.onFailure(error, req, res, next);
         } else {
-          res.sendStatus(500);
+          log(500, "Unknown Error: " + error.stack);
+          if (error.stack) {
+            res.status(500).send(error.stack);
+          } else {
+            res.sendStatus(500);
+          }
         }
       }
     }

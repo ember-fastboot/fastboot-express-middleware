@@ -4,7 +4,8 @@
   "description": "An Express middleware for rendering Ember apps with FastBoot",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "./node_modules/mocha/bin/mocha",
+    "test:watch": "./node_modules/mocha/bin/mocha -w"
   },
   "repository": {
     "type": "git",
