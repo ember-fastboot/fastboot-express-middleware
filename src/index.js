@@ -58,8 +58,8 @@ function fastbootExpressMiddleware(distPath, options) {
     }
 
     function failure(error) {
-      if (error.name !== "UnrecognizedURLError") {
-        res.status(500);
+      if (error.name === "UnrecognizedURLError") {
+        res.status(404);
       }
       next(error);
     }
