@@ -31,9 +31,10 @@
     "chai": "^3.5.0",
     "chai-as-promised": "^5.3.0",
     "ember-cli": "^2.7.0",
+    "eslint-plugin-mocha": "^4.8.0",
     "express": "^4.13.4",
     "mocha": "^2.4.5",
-    "mocha-jshint": "^2.3.1",
+    "mocha-eslint": "^3.0.1",
     "request-promise": "^3.0.0"
   },
   "dependencies": {
