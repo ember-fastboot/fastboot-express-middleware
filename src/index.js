@@ -1,6 +1,5 @@
 'use strict';
 
-
 function fastbootExpressMiddleware(distPath, options) {
   const FastBoot = require('fastboot');
 
@@ -8,7 +7,7 @@ function fastbootExpressMiddleware(distPath, options) {
 
   if (arguments.length === 1) {
     if (typeof distPath === 'string') {
-      opts = { distPath: distPath };
+      opts = { distPath };
     } else {
       opts = distPath;
     }
@@ -23,7 +22,7 @@ function fastbootExpressMiddleware(distPath, options) {
   if (!fastboot) {
     fastboot = new FastBoot({
       distPath: opts.distPath,
-      resilient: opts.resilient
+      resilient: opts.resilient,
     });
   }
 
@@ -38,12 +37,12 @@ function fastbootExpressMiddleware(distPath, options) {
           let headers = result.headers;
           let statusMessage = result.error ? 'NOT OK ' : 'OK ';
 
-          for (var pair of headers.entries()) {
+          for (let pair of headers.entries()) {
             res.set(pair[0], pair[1]);
           }
 
           if (result.error) {
-            log("RESILIENT MODE CAUGHT:", result.error.stack);
+            log('RESILIENT MODE CAUGHT:', result.error.stack);
             next(result.error);
           }
 
@@ -58,7 +57,7 @@ function fastbootExpressMiddleware(distPath, options) {
     }
 
     function failure(error) {
-      if (error.name === "UnrecognizedURLError") {
+      if (error.name === 'UnrecognizedURLError') {
         next();
       } else {
         res.status(500);
@@ -77,10 +76,10 @@ function _log(statusCode, message, startTime) {
 
   if (startTime) {
     let diff = Date.now() - startTime;
-    message = message + chalk.blue(" " + diff + "ms");
+    message = message + chalk.blue(` ${diff}ms`);
   }
 
-  console.log(chalk.blue(now.toISOString()) + " " + chalk[color](statusCode) + " " + message);
+  console.log(`${chalk.blue(now.toISOString())} ${chalk[color](statusCode)} ${message}`);
 }
 
 module.exports = fastbootExpressMiddleware;

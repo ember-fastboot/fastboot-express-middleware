@@ -46,9 +46,9 @@ class TestHTTPServer {
 
         this.listener = listener;
         this.info = {
-          host: host,
-          port: port,
-          listener: listener
+          host,
+          port,
+          listener,
         };
 
         resolve(this.info);
@@ -58,12 +58,12 @@ class TestHTTPServer {
 
   request(urlPath, options) {
     let info = this.info;
-    let url = 'http://[' + info.host + ']:' + info.port;
+    let url = `http://[${info.host}]:${info.port}`;
 
     if (options && options.resolveWithFullResponse) {
       return request({
         resolveWithFullResponse: options.resolveWithFullResponse,
-        uri: url + urlPath
+        uri: url + urlPath,
       });
     }
 

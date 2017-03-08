@@ -7,7 +7,7 @@ const fastbootMiddleware = require('./../src/index');
 const fixture            = require('./helpers/fixture-path');
 const TestHTTPServer     = require('./helpers/test-http-server');
 
-describe("FastBoot", function() {
+describe('FastBoot', function() {
   let server;
 
   this.timeout(10000);
@@ -19,7 +19,7 @@ describe("FastBoot", function() {
     }
   });
 
-  it("throws an exception if no distPath is provided", function() {
+  it('throws an exception if no distPath is provided', function() {
     let fn = function() {
       fastbootMiddleware();
     };
@@ -27,7 +27,7 @@ describe("FastBoot", function() {
     expect(fn).to.throw(/You must instantiate FastBoot with a distPath option/);
   });
 
-  it("can provide distPath as the first argument", function() {
+  it('can provide distPath as the first argument', function() {
     let middleware = fastbootMiddleware(fixture('basic-app'));
     server = new TestHTTPServer(middleware);
 
@@ -38,9 +38,9 @@ describe("FastBoot", function() {
       });
   });
 
-  it("can provide distPath as an option", function() {
+  it('can provide distPath as an option', function() {
     let middleware = fastbootMiddleware({
-      distPath: fixture('basic-app')
+      distPath: fixture('basic-app'),
     });
     server = new TestHTTPServer(middleware);
 
@@ -51,20 +51,20 @@ describe("FastBoot", function() {
       });
   });
 
-  it("returns 404 when navigating to a URL that doesn't exist", function() {
+  it('returns 404 when navigating to a URL that doesn\'t exist', function() {
     let middleware = fastbootMiddleware(fixture('basic-app'));
     server = new TestHTTPServer(middleware);
 
     return server.start()
       .then(() => server.request('/foo-bar-baz/non-existent'))
-      .catch((result) => {
+      .catch(result => {
         expect(result.statusCode).to.equal(404);
       });
   });
 
-  it("returns a 500 error if an error occurs", function() {
+  it('returns a 500 error if an error occurs', function() {
     let middleware = fastbootMiddleware({
-      distPath: fixture('rejected-promise')
+      distPath: fixture('rejected-promise'),
     });
     server = new TestHTTPServer(middleware);
 
@@ -75,13 +75,13 @@ describe("FastBoot", function() {
       });
   });
 
-  it("can be provided with a custom FastBoot instance", function() {
+  it('can be provided with a custom FastBoot instance', function() {
     let fastboot = new FastBoot({
-      distPath: fixture('basic-app')
+      distPath: fixture('basic-app'),
     });
 
     let middleware = fastbootMiddleware({
-      fastboot: fastboot
+      fastboot,
     });
 
     server = new TestHTTPServer(middleware);
@@ -93,13 +93,13 @@ describe("FastBoot", function() {
       });
   });
 
-  it("can reload the FastBoot instance", function() {
+  it('can reload the FastBoot instance', function() {
     let fastboot = new FastBoot({
-      distPath: fixture('basic-app')
+      distPath: fixture('basic-app'),
     });
 
     let middleware = fastbootMiddleware({
-      fastboot: fastboot
+      fastboot,
     });
 
     server = new TestHTTPServer(middleware);
@@ -118,7 +118,7 @@ describe("FastBoot", function() {
 
     function hotReloadApp() {
       fastboot.reload({
-        distPath: fixture('hot-swap-app')
+        distPath: fixture('hot-swap-app'),
       });
     }
 
@@ -130,11 +130,11 @@ describe("FastBoot", function() {
     }
   });
 
-  describe('when reslient mode is enabled', function () {
-    it("renders no FastBoot markup", function() {
+  describe('when reslient mode is enabled', function() {
+    it('renders no FastBoot markup', function() {
       let middleware = fastbootMiddleware({
         distPath: fixture('rejected-promise'),
-        resilient: true
+        resilient: true,
       });
       server = new TestHTTPServer(middleware);
 
@@ -145,10 +145,10 @@ describe("FastBoot", function() {
         });
     });
 
-    it("propagates to error handling middleware", function() {
+    it('propagates to error handling middleware', function() {
       let middleware = fastbootMiddleware({
         distPath: fixture('rejected-promise'),
-        resilient: true
+        resilient: true,
       });
       server = new TestHTTPServer(middleware, { errorHandling: true });
 
@@ -161,7 +161,7 @@ describe("FastBoot", function() {
         });
     });
 
-    it("is does not propagate errors when and there is no error handling middleware", function() {
+    it('is does not propagate errors when and there is no error handling middleware', function() {
       let middleware = fastbootMiddleware({
         distPath: fixture('rejected-promise'),
         resilient: true,
@@ -178,10 +178,10 @@ describe("FastBoot", function() {
         });
     });
 
-    it("allows post-fastboot middleware to recover the response when it fails", function() {
+    it('allows post-fastboot middleware to recover the response when it fails', function() {
       let middleware = fastbootMiddleware({
         distPath: fixture('rejected-promise'),
-        resilient: true
+        resilient: true,
       });
       server = new TestHTTPServer(middleware, { recoverErrors: true });
 
@@ -195,8 +195,8 @@ describe("FastBoot", function() {
     });
   });
 
-  describe('when reslient mode is disabled', function () {
-    it("propagates to error handling middleware", function() {
+  describe('when reslient mode is disabled', function() {
+    it('propagates to error handling middleware', function() {
       let middleware = fastbootMiddleware({
         distPath: fixture('rejected-promise'),
         resilient: false,
@@ -211,10 +211,10 @@ describe("FastBoot", function() {
         });
     });
 
-    it("allows post-fastboot middleware to recover the response when it fails", function() {
+    it('allows post-fastboot middleware to recover the response when it fails', function() {
       let middleware = fastbootMiddleware({
         distPath: fixture('rejected-promise'),
-        resilient: false
+        resilient: false,
       });
       server = new TestHTTPServer(middleware, { recoverErrors: true });
 

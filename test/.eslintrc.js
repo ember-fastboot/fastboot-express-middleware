@@ -19,6 +19,8 @@ module.exports = {
     // disabled because describe(), it(), etc. should not use arrow functions
     'prefer-arrow-callback': 0,
 
+    'no-multi-spaces': ["error", {"exceptions": { "VariableDeclarator": true }}],
+
     /*** mocha ***/
 
     'mocha/no-exclusive-tests': 'error',
