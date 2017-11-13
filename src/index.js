@@ -1,6 +1,5 @@
 'use strict';
 
-
 function fastbootExpressMiddleware(distPath, options) {
   let opts = options;
 
@@ -37,16 +36,27 @@ function fastbootExpressMiddleware(distPath, options) {
       responseBody.then(body => {
         let headers = result.headers;
         let statusMessage = result.error ? 'NOT OK ' : 'OK ';
-    
-        for (var pair of headers.entries()) {
-          res.set(pair[0], pair[1]);
+        let cookies = {};
+
+        for (let pair of headers.entries()) {
+          let name = pair[0];
+          let value = pair[1];
+
+          if (pair[0].toLowerCase() === 'set-cookie') {
+            let cookieName = value.split('=')[0];
+            cookies[cookieName] = value;
+          } else {
+            res.set(name, value);
+          }
         }
-    
+
+        res.set('Set-Cookie', Object.keys(cookies).map(k => cookies[k]));
+
         if (result.error) {
           log("RESILIENT MODE CAUGHT:", result.error.stack);
           next(result.error);
         }
-    
+
         log(result.statusCode, statusMessage + path);
         res.status(result.statusCode);
 
