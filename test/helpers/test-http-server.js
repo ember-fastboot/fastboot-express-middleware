@@ -3,6 +3,7 @@
 const express            = require('express');
 const request            = require('request-promise');
 const fastbootMiddleware = require('./../../src/index');
+const mockMiddleware     = require('./mock-middleware');
 
 let serverID = 0;
 
@@ -18,7 +19,13 @@ class TestHTTPServer {
     let options = this.options;
     let app = express();
 
-    app.get('/*', this.middleware);
+    if (options.postProcess) {
+      app.use(this.middleware);
+      app.use(mockMiddleware);
+      app.get('/*');
+    } else {
+      app.get('/*', this.middleware);
+    }
 
     if (options.errorHandling) {
       app.use((err, req, res, next) => {

@@ -228,4 +228,20 @@ describe("FastBoot", function() {
     });
   });
 
+  describe('checks middleware chain', function() {
+    it('chains when it has post process', function() {
+      let middleware = fastbootMiddleware({
+        distPath: fixture('basic-app'),
+        postProcess: true
+      });
+      server = new TestHTTPServer(middleware, { postProcess: true });
+
+      return server.start()
+        .then(() => server.request('/', { resolveWithFullResponse: true }))
+        .then(({ body, statusCode, headers }) => {
+          expect(statusCode).to.equal(200);
+          expect(headers['x-test-middleware']).to.match(/true/);
+        });
+    });
+  });
 });
