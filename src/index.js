@@ -46,6 +46,11 @@ function fastbootExpressMiddleware(distPath, options) {
             next(result.error);
           }
 
+          if (opts.postProcess) {
+            req.html = html;
+            return next();
+          }
+
           log(result.statusCode, statusMessage + path);
           res.status(result.statusCode);
           res.send(html);

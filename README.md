@@ -89,6 +89,23 @@ app.get('/*', middleware);
 fastboot.reload();
 ```
 
+## Post processing
+
+If you want to work on the html response after fastboot is done with its work,
+you can set an option to include other middleware's in the chain.
+
+```js
+var myMiddleware = function(req, res) {
+    res.send(req.html);
+};
+
+app.use(fastbootMiddleware({
+  distPath: 'path/to/dist',
+  postProcess: true
+}));
+app.get('/*', myMiddleware);
+```
+
 [ember-cli-fastboot]: https://github.com/ember-fastboot/ember-cli-fastboot
 
 ## Tests
