@@ -255,6 +255,20 @@ describe("FastBoot", function() {
               expect(body).to.match(/hello world/);
             });
         });
+
+        it("can return multiple cookie headers", function() {
+          let middleware = fastbootMiddleware({
+            distPath: fixture('basic-app'),
+            chunkedResponse
+          });
+          server = new TestHTTPServer(middleware);
+
+          return server.start()
+            .then(() => server.request('/', { resolveWithFullResponse: true }))
+            .then(({ headers }) => {
+              expect(headers['set-cookie']).to.eql(['first-cookie=first', 'second-cookie=second']);
+            });
+        });
       });
     });
   });
