@@ -49,6 +49,7 @@ function fastbootExpressMiddleware(distPath, options) {
     
         log(result.statusCode, statusMessage + path);
         res.status(result.statusCode);
+        res.type('text/html');
 
         if (typeof body === 'string') {
           res.send(body);
