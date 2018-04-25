@@ -906,9 +906,9 @@ broccoli-stew@^1.2.0, broccoli-stew@^1.3.3:
     symlink-or-copy "^1.1.8"
     walk-sync "^0.3.0"
 
-browser-stdout@1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/browser-stdout/-/browser-stdout-1.3.0.tgz#f351d32969d32fa5d7a5567154263d928ae3bd1f"
+browser-stdout@1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/browser-stdout/-/browser-stdout-1.3.1.tgz#baa559ee14ced73452229bad7326467c61fabd60"
 
 bser@^2.0.0:
   version "2.0.0"
@@ -1376,9 +1376,9 @@ detect-indent@^4.0.0:
   dependencies:
     repeating "^2.0.0"
 
-diff@3.3.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/diff/-/diff-3.3.1.tgz#aa8567a6eed03c531fc89d3f711cd0e5259dec75"
+diff@3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/diff/-/diff-3.5.0.tgz#800c0dd1e0a8bfbc95835c202ad220fe317e5a12"
 
 diff@^3.2.0:
   version "3.2.0"
@@ -1878,9 +1878,9 @@ fast-sourcemap-concat@^1.0.1:
     source-map "^0.4.2"
     source-map-url "^0.3.0"
 
-fastboot@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/fastboot/-/fastboot-1.1.2.tgz#1cb4b6423aacc4339fbf003cc7b6ecabd3083dfa"
+fastboot@1.1.4-beta.1:
+  version "1.1.4-beta.1"
+  resolved "https://registry.yarnpkg.com/fastboot/-/fastboot-1.1.4-beta.1.tgz#860f8af2bd032b3a7477fdf6e1a64b034a02829f"
   dependencies:
     chalk "^2.0.1"
     cookie "^0.3.1"
@@ -2938,7 +2938,7 @@ mime@1.3.4, mime@^1.2.11:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.3.4.tgz#115f9e3b6b3daf2959983cb38f149a2d40eb5d53"
 
-"minimatch@2 || 3", minimatch@^3.0.0, minimatch@^3.0.2, minimatch@^3.0.3, minimatch@^3.0.4, minimatch@~3.0.2:
+"minimatch@2 || 3", minimatch@3.0.4, minimatch@^3.0.0, minimatch@^3.0.2, minimatch@^3.0.3, minimatch@^3.0.4, minimatch@~3.0.2:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
   dependencies:
@@ -2971,18 +2971,19 @@ mocha-jshint@^2.3.1:
     shelljs "^0.4.0"
     uniq "^1.0.1"
 
-mocha@^4.0.0:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/mocha/-/mocha-4.0.1.tgz#0aee5a95cf69a4618820f5e51fa31717117daf1b"
+mocha@^5.0.0:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/mocha/-/mocha-5.1.1.tgz#b774c75609dac05eb48f4d9ba1d827b97fde8a7b"
   dependencies:
-    browser-stdout "1.3.0"
+    browser-stdout "1.3.1"
     commander "2.11.0"
     debug "3.1.0"
-    diff "3.3.1"
+    diff "3.5.0"
     escape-string-regexp "1.0.5"
     glob "7.1.2"
     growl "1.10.3"
     he "1.1.1"
+    minimatch "3.0.4"
     mkdirp "0.5.1"
     supports-color "4.4.0"
 
