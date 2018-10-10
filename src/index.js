@@ -37,25 +37,25 @@ function fastbootExpressMiddleware(distPath, options) {
       responseBody.then(body => {
         let headers = result.headers;
         let statusMessage = result.error ? 'NOT OK ' : 'OK ';
-    
+
         for (var pair of headers.entries()) {
           res.set(pair[0], pair[1]);
         }
-    
+
         if (result.error) {
           log("RESILIENT MODE CAUGHT:", result.error.stack);
           next(result.error);
         }
-    
+
         log(result.statusCode, statusMessage + path);
         res.status(result.statusCode);
-        res.type('text/html');
 
         if (typeof body === 'string') {
           res.send(body);
         } else if (result.error) {
           res.send(body[0]);
         } else {
+          res.type('html');
           body.forEach(chunk => res.write(chunk));
           res.end();
         }
