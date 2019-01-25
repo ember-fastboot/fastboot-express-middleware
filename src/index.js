@@ -39,9 +39,6 @@ function fastbootExpressMiddleware(distPath, options) {
         let cookies = new Map();
 
         for (let [name, value] of headers.entries()) {
-          let name = pair[0];
-          let value = pair[1];
-
           if (name.toLowerCase() === 'set-cookie') {
             let cookieName = value.split('=')[0];
             cookies.set(cookieName, value);
