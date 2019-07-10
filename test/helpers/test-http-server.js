@@ -31,7 +31,7 @@ class TestHTTPServer {
       app.use((err, req, res, next) => {
         res.set('x-test-recovery', 'recovered response');
         res.status(200);
-        res.send('hello world');
+        res.send('special error handling');
       });
     }
 

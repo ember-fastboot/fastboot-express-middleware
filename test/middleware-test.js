@@ -150,10 +150,11 @@ describe("FastBoot", function() {
           .then(() => server.request('/'))
           .catch(err => {
             expect(err.message).to.match(/Rejected on purpose/);
+            expect(err.response.body).to.match(/error/i);
           });
       });
 
-      describe('when reslient mode is enabled', function () {
+      describe('when resilient mode is enabled', function () {
         it("renders no FastBoot markup", function() {
           let middleware = fastbootMiddleware({
             distPath: fixture('rejected-promise'),
@@ -166,6 +167,7 @@ describe("FastBoot", function() {
             .then(() => server.request('/'))
             .then(html => {
               expect(html).to.not.match(/error/);
+              expect(html).to.match(/Original body/);
             });
         });
 
@@ -182,7 +184,7 @@ describe("FastBoot", function() {
             .then(({ body, statusCode, headers }) => {
               expect(statusCode).to.equal(200);
               expect(headers['x-test-error']).to.match(/error handler called/);
-              expect(body).to.match(/hello world/);
+              expect(body).to.match(/Original body/);
             });
         });
 
@@ -200,7 +202,7 @@ describe("FastBoot", function() {
               expect(statusCode).to.equal(200);
               expect(headers['x-test-error']).to.not.match(/error handler called/);
               expect(body).to.not.match(/error/);
-              expect(body).to.match(/hello world/);
+              expect(body).to.match(/Original body/);
             });
         });
 
@@ -217,7 +219,7 @@ describe("FastBoot", function() {
             .then(({ body, statusCode, headers }) => {
               expect(statusCode).to.equal(200);
               expect(headers['x-test-recovery']).to.match(/recovered response/);
-              expect(body).to.match(/hello world/);
+              expect(body).to.equal('special error handling');
             });
         });
       });
@@ -233,9 +235,10 @@ describe("FastBoot", function() {
 
           return server.start()
             .then(() => server.request('/', { resolveWithFullResponse: true }))
-            .catch(({ statusCode, response: { headers } }) => {
+            .catch(({ body, statusCode, response: { headers } }) => {
               expect(statusCode).to.equal(500);
               expect(headers['x-test-error']).to.match(/error handler called/);
+              expect(body).to.be.an('undefined');
             });
         });
 
@@ -252,7 +255,7 @@ describe("FastBoot", function() {
             .then(({ body, statusCode, headers }) => {
               expect(statusCode).to.equal(200);
               expect(headers['x-test-recovery']).to.match(/recovered response/);
-              expect(body).to.match(/hello world/);
+              expect(body).to.equal('special error handling');
             });
         });
       });
