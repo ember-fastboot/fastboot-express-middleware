@@ -36,7 +36,7 @@ class TestHTTPServer {
     }
 
     return new Promise((resolve, reject) => {
-      let port = options.port || 3000;
+      let port = options.port || 5000;
       let host = options.host || 'localhost';
 
       let listener = app.listen(port, host, () => {
