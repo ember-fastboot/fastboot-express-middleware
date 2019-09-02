@@ -120,6 +120,7 @@ describe("FastBoot", function() {
             .then(() => server.request('/', { resolveWithFullResponse: true }))
             .then(({ body, _, headers }) => {
               expect(headers['transfer-encoding']).to.eq('chunked');
+              expect(headers['content-type']).to.eq('text/html; charset=utf-8');
               expect(body).to.match(/Welcome to Ember/);
             });
         });
