@@ -31,12 +31,12 @@ class TestHTTPServer {
       app.use((err, req, res, next) => {
         res.set('x-test-recovery', 'recovered response');
         res.status(200);
-        res.send('hello world');
+        res.send('special error handling');
       });
     }
 
     return new Promise((resolve, reject) => {
-      let port = options.port || 3000;
+      let port = options.port || 5000;
       let host = options.host || 'localhost';
 
       let listener = app.listen(port, host, () => {
