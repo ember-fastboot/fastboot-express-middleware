@@ -37,7 +37,7 @@
     "request-promise": "^4.2.1"
   },
   "dependencies": {
-    "chalk": "^2.0.1",
+    "chalk": "^3.0.0",
     "fastboot": "^2.0.1",
     "request": "^2.81.0"
   }
